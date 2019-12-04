@@ -12,25 +12,24 @@ class MonomTestt {
 	void isZeroTest() {
 		Monom x= new Monom(0,5);
 		Monom y= new Monom(-5,0);
+		Monom z= new Monom(-1,0);
 		boolean resultx =x.isZero();
 		boolean resulty =y.isZero();
+		boolean resultz =z.isZero();
 		assertTrue(resultx);
 		assertFalse(resulty);
+		assertFalse(resultz);
 	
 	}
 	@Test
-	void isMonomTest() {
-		String monoma="5x";
-		String monomb="-5x";
-		String monomc="x^2";
-		String monomd="0.5x^4";
-		Monom a= new Monom(monoma);
+	void isMonomFromStringTest() {
+		Monom a= new Monom("5x");
 		Monom expected_a=new Monom(5,1);
-		Monom b=new Monom(monomb);
+		Monom b=new Monom("-5x");
 		Monom expected_b=new Monom(-5,1);
-		Monom c=new Monom(monomc);
+		Monom c=new Monom("x^2");
 		Monom expected_c=new Monom(1,2);
-		Monom d=new Monom(monomd);
+		Monom d=new Monom("0.5x^4");
 		Monom expected_d=new Monom(0.5,4);
 		assertTrue( a.equals(expected_a));
 		assertTrue( b.equals(expected_b));
@@ -74,6 +73,30 @@ class MonomTestt {
 		monoms5.multipy(monoms6);
 		Monom ans3=new Monom(-15,9);
 		assertTrue(monoms5.equals(ans3));		
+	}
+	@Test
+	void toStringTest(){
+		Monom monoms1=new Monom(-1,1);
+		Monom monoms2=new Monom(2,4);
+		Monom monoms3=new Monom(-2,0);
+		String a=  "-1.0x";
+		String b= "2.0x^4";
+		String c= "-2.0";
+		String d= "-2";
+		assertTrue(monoms1.toString().equals(a));
+		assertTrue(monoms2.toString().equals(b));
+		assertTrue(monoms3.toString().equals(c));
+		assertFalse(monoms3.toString().equals(d));
+	}
+	@Test
+	void equalsTest() {
+		Monom monoms1=new Monom(-1,1);
+		Monom monoms2=new Monom(2,4);
+		Monom monoms3 = new Monom(0,0);
+		Monom monoms4 = new Monom(0,5);
+		assertFalse(monoms1.equals(monoms2));
+		assertTrue(monoms1.equals(monoms1));
+		assertTrue(monoms3.equals(monoms4));
 	}
 		
 }

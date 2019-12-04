@@ -8,7 +8,7 @@ import java.util.Comparator;
  * see: https://en.wikipedia.org/wiki/Monomial 
  * The class implements function and support simple operations as: construction, value at x, derivative, add and multiply. 
  * @author Boaz
- *
+ * 
  */
 public class Monom implements function{
 	public static final Monom ZERO = new Monom(0,0);
@@ -16,11 +16,39 @@ public class Monom implements function{
 	public static final double EPSILON = 0.0000001;
 	public static final Comparator<Monom> _Comp = new Monom_Comperator();
 	public static Comparator<Monom> getComp() {return _Comp;}
+	
 	public Monom(double a, int b){    
 		this.set_coefficient(a);
-		this.set_power(b);
-		
+		this.set_power(b);	
 	}
+	
+	// ***********************************************************************
+	public function copy() {
+		function x= new Monom(this._coefficient, this._power);
+		return x;
+	}
+	
+	public function initFromString(String s) {
+		function x =new Monom(s);
+		return x;
+	}
+	//**** לקחת רפרנס ולמחוק עברית !!!
+	public boolean equals(Object obj) {
+		if (obj instanceof Monom) {
+			Monom m= (Monom)obj;
+			
+			if (( m._coefficient == get_coefficient())&&(get_coefficient()==0))
+				return true;
+			double dc=m._coefficient - get_coefficient();
+			 if ((Math.abs(dc)<=EPSILON) && (m._power ==get_power()) )
+					return true;
+	
+			
+			else return false;
+			}
+		else throw new ArithmeticException ("your object is not a Monom");	
+	}
+	// ************************************************************************
 	/** 
 	 * this method copies an existing monom
 	 * @param ot : existing monom
@@ -177,16 +205,16 @@ public class Monom implements function{
 	 * this method checks whether two monoms are equal to each other
 	 * @param m: Represents the monom we are trying to compare to the given monom
 	 */
-	public boolean equals(Monom m) {
-		if (( m._coefficient == get_coefficient())&&(get_coefficient()==0))
-			return true;
-		double dc=m._coefficient - get_coefficient();
-		 if ((Math.abs(dc)<=EPSILON) && (m._power ==get_power()) )
-				return true;
-
-		
-		else return false;
-	}
+//	public boolean equals(Monom m) {
+//		if (( m._coefficient == get_coefficient())&&(get_coefficient()==0))
+//			return true;
+//		double dc=m._coefficient - get_coefficient();
+//		 if ((Math.abs(dc)<=EPSILON) && (m._power ==get_power()) )
+//				return true;
+//
+//		
+//		else return false;
+//	}
 	
 	/** 
 	 * this method  performs an adding operation between 2 monoms

@@ -3,7 +3,7 @@ package myMath;
 /**
  * The interface represents a continuance function 
  * @author Boaz
- *
+ * 
  */ 
 public interface cont_function extends function{
 	/**

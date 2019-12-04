@@ -25,7 +25,38 @@ public class Polynom implements Polynom_able{
 	public Polynom() {
 		this.poly= new ArrayList<Monom>();
 	}
+//**************************************************************************************
+	public function initFromString(String s) {
+		function x= new Polynom(s);
+		return x;
+	}
+	//*** להעתיק רפרנס ולמחוק עברית !
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof Polynom_able ) {
+			Polynom_able p1 =(Polynom_able)obj;
+			boolean flag = false ;
+			Iterator<Monom> polynom_new = p1.iteretor();
+			Iterator<Monom> polynom_old = this.poly.iterator();
+			while(polynom_new.hasNext() ) {
+				Monom i =polynom_new.next();
+				flag=false;
+				while(polynom_old.hasNext()&& flag==false) {
+					Monom p =polynom_old.next();
+					if(i.equals(p)) {
+						flag=true;	
+					}	
+					if(flag == false)
+						return false;
+				}
+			}
+			return true;
+		}
+		else throw new ArithmeticException ("your object is not a Polynom");	
+}
 
+
+//***************************************************************************************
 	/**
 	 * init a Polynom from a String such as:
 	 *  {"x", "3+1.4X^3-34x", "(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
@@ -60,7 +91,7 @@ public class Polynom implements Polynom_able{
 	@Override
 	/** 
 	 * this method  calculates the polynomial 
-	 * @param x: The variable of value with which we calculate the polynomial
+	 * @param x: The variable of value with which we calculate the polynomial 
 	 */
 	public double f(double x) {
 		// TODO Auto-generated method stub
@@ -149,30 +180,30 @@ public class Polynom implements Polynom_able{
 		this.poly=x.poly;
 	}
 
-	@Override
+	//@Override
 	/** 
 	 * this method checks whether two polynomials are equal to each other
 	 * @param p1: Represents the polynomial we are trying to compare to the given polynomial
 	 */
-	public boolean equals(Polynom_able p1) {
-		// TODO Auto-generated method stub
-		boolean flag = false ;
-		Iterator<Monom> polynom_new = p1.iteretor();
-		Iterator<Monom> polynom_old = this.poly.iterator();
-		while(polynom_new.hasNext() ) {
-			Monom i =polynom_new.next();
-			flag=false;
-			while(polynom_old.hasNext()&& flag==false) {
-				Monom p =polynom_old.next();
-				if(i.equals(p)) {
-					flag=true;	
-				}	
-				if(flag == false)
-					return false;
-			}
-		}
-		return true;
-	}
+//	public boolean equals(Polynom_able p1) {
+//		// TODO Auto-generated method stub
+//		boolean flag = false ;
+//		Iterator<Monom> polynom_new = p1.iteretor();
+//		Iterator<Monom> polynom_old = this.poly.iterator();
+//		while(polynom_new.hasNext() ) {
+//			Monom i =polynom_new.next();
+//			flag=false;
+//			while(polynom_old.hasNext()&& flag==false) {
+//				Monom p =polynom_old.next();
+//				if(i.equals(p)) {
+//					flag=true;	
+//				}	
+//				if(flag == false)
+//					return false;
+//			}
+//		}
+//		return true;
+//	}
 
 	@Override
 	/** 
