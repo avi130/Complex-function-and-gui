@@ -3,6 +3,8 @@ package myMath;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 public class ComplexFunction implements complex_function {
 
 	private function left;
@@ -65,8 +67,6 @@ public class ComplexFunction implements complex_function {
 	}
 	
 	Operation newOperation = Operation.None;
-	Operation newOperation1[]= new Operation[1];
-	
 	@Override
 	
 	public function initFromString(String s) {
@@ -76,8 +76,6 @@ public class ComplexFunction implements complex_function {
 		String r = "";
 		int index_start = 0;
 		int index_end = 0;
-	    
-		ComplexFunction hadash = new ComplexFunction();
 
 		int open = 0;
 		int close = 0;
@@ -140,7 +138,7 @@ public class ComplexFunction implements complex_function {
 					if (s.charAt(i) == ',' && open == 1) {
 						l = s.substring(index_start, i);
 						r = s.substring(i + 1, index_end-1);
-						return new ComplexFunction(initFromString(l), initFromString(r), this.root /*newOperation*/);
+						return new ComplexFunction(initFromString(l), initFromString(r), newOperation );
 					}
 				} // end for
 
@@ -156,7 +154,8 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
-		return null;
+		function newCopy= new ComplexFunction(this.left, this.right, this.root);
+		return newCopy;
 	}
 
 	@Override
