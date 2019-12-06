@@ -114,8 +114,8 @@ public class Polynom implements Polynom_able{
 		// TODO Auto-generated method stub
 		Iterator<Monom> polynom_new = p1.iteretor();
 		while(polynom_new.hasNext()) {
-			Monom i =polynom_new.next();
-			this.add(i);
+		//	Monom i =polynom_new.next();
+			this.add(polynom_new.next());
 		}
 	}
 
@@ -132,14 +132,18 @@ public class Polynom implements Polynom_able{
 		while(polynom.hasNext() && flag==true) {
 			Monom i = (Monom)polynom.next();
 			if(m1.get_power() == i.get_power() ) {
+				this.poly.remove(poly.indexOf(i));
 				i.add(m1);
-				flag=false;				 
+				this.poly.add(i);
+				flag=false;		
+				Collections.sort(this.poly, x);
 			}
 		}
 		if (flag) {
 			this.poly.add(m1);
 			Collections.sort(this.poly, x);
 		}
+		
 	
 	}
 

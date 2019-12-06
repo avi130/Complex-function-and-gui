@@ -1,10 +1,8 @@
 package myMath;
 
 public class PolynomTestEvgeny {
-
 	static int fails = 0;
 	public static void main(String[] args) {
-		
 		try {test1();}catch (Exception e) {
 			System.out.println("test1 exception");
 			fails = fails + 3;
@@ -120,28 +118,27 @@ public class PolynomTestEvgeny {
 		for (int i = 0; i < polynoms[0].length; i++) {
 			Monom temp = new Monom(polynoms[0][i]);
 			p1.add(temp);
-			System.out.println(p1);
 		}		
-		System.out.println();
 		for (int i = 0; i < polynoms[1].length; i++) {
 			Monom temp = new Monom(polynoms[1][i]);
 			p2.add(temp);
-			System.out.println(p2);
 		}
-		System.out.println();
-
 		for (int i = 0; i < polynoms[2].length; i++) {
 			Monom temp = new Monom(polynoms[2][i]);
 			p3.add(temp);
-			System.out.println(p3);
 		}
-		System.out.println();
-
 		Polynom add = new Polynom();
 		Polynom substract = new Polynom();
+		
 		add = (Polynom) p1.copy();
+		System.out.println();
+		System.out.println(add);
 		substract = (Polynom)p1.copy();
+		
 		add.add(p2);
+		System.out.println();
+		System.out.println();
+		System.out.println(add);
 		substract.substract(p2);
 		if (!add.equals(p3)) {
 			fails++;
@@ -226,8 +223,6 @@ public class PolynomTestEvgeny {
 			System.out.println("fail copy");
 		}
 		p2.add(new Monom("x^2"));
-		System.out.println(p1);
-		System.out.println(p2);
 		if ( p1.equals(p2)) {
 			fails++;
 			System.out.println("fail deep copy");

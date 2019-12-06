@@ -222,8 +222,8 @@ public class Monom implements function{
 	 */
 	public void add(Monom m) {
 		
-		if(m._power== get_power()) {
-		 	this._coefficient = m._coefficient + get_coefficient();
+		if(m._power== this._power) {
+		 	this.set_coefficient(m._coefficient + this._coefficient);
 		 	this._power=m._power;
 		}
 		else 
