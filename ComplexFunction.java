@@ -33,7 +33,7 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public double f(double x) {
 		// TODO Auto-generated method stub
-		switch (root.toString()) {
+		switch (root.toString() ) {
 			case ("Plus"): {
 				return this.left.f(x) + this.right.f(x);
 			}
@@ -290,9 +290,39 @@ public class ComplexFunction implements complex_function {
 		return null;
 	}
 	
+	
 	public String toString() {
+		String ans="";
+		ans +=this.root.toString();
+		ans+='(';
+		if(this.left instanceof ComplexFunction ) {
+			return ans+this.left.toString()+","+this.right.toString()+")";
+		}
+		else if(this.left instanceof Polynom ) {
+			Polynom p1 =(Polynom)this.left;
+			ans+= p1.toString();
+			ans+=',';
+		}
+		else if(this.left instanceof Monom ) {
+			Monom p1 =(Monom)this.left;
+			ans+= p1.toString();
+			ans+=',';
+		}
 		
-		return null;
+		if(this.right instanceof ComplexFunction ) {
+			return ans+this.right.toString()+","+this.right.toString()+")";
+		}
+		else if(this.right instanceof Polynom ) {
+			Polynom p2 =(Polynom)this.right;
+			ans+= p2.toString();	
+		}
+		else if(this.right instanceof Monom ) {
+			Monom p1 =(Monom)this.right;
+			ans+= p1.toString();
+		}	
+		ans+=')';
+		
+		return ans;
 	}
 	
 	
