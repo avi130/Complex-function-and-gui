@@ -1,15 +1,33 @@
-package myMath;
+package Ex1;
 
+import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.io.BufferedReader;
+
+
 
 public class Functions_GUI implements functions   {
+	
+	
  LinkedList<function> list= new LinkedList<function>();
+ 
+	public Functions_GUI() {
+		list = new LinkedList<function>();
+	}
+
+	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE, Color.red, Color.GREEN, Color.PINK}; 
+ 
 	@Override
 	public boolean add(function arg0) {
 		// TODO Auto-generated method stub
@@ -97,12 +115,29 @@ public class Functions_GUI implements functions   {
 	@Override
 	public void initFromFile(String file) throws IOException {
 		// TODO Auto-generated method stub
+		
+		
+		BufferedReader bf= new BufferedReader(new FileReader(file));
+		String hadash="";
+		while ((hadash=bf.readLine()) !=null) {
+			function t= new ComplexFunction().initFromString(hadash);
+			list.add(t);
+			
+		}
+		bf.close();
+		
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
 		// TODO Auto-generated method stub
-	}
+		PrintWriter print=new PrintWriter(file);
+		for (int i = 0; i < list.size(); i++) {
+			print.println(list.get(i).toString());
+		}
+		print.close();
+			
+		}
 
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {

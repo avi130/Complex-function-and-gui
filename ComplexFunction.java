@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +11,7 @@ public class ComplexFunction implements complex_function {
 	private function right;
 	private Operation root;
 
+	
 	public ComplexFunction() {
 		this.left = new Polynom("0");
 		this.right = null;
@@ -29,6 +30,7 @@ public class ComplexFunction implements complex_function {
 		this.right = data2;
 		this.root = root;
 	}
+	
 
 	@Override
 	public double f(double x) {
@@ -59,23 +61,23 @@ public class ComplexFunction implements complex_function {
 			}
 			case ("None"): {
 			}
-			case ("Error"): {
-				System.out.println("Eror");// לשנות את ההדפסה לזריקת שגיאה עם TRY ו CATCH
-			}
+			default: throw new ArithmeticException("Operation do not exist");
 		}
-		return 0;
+		
 	}
 	
 	Operation newOperation = Operation.None;
 	@Override
 	
 	public function initFromString(String s) {
+		//Operation newOperation = Operation.None;
 		// TODO Auto-generated method stub
 		String stringOp = "";
 		String l = "";
 		String r = "";
 		int index_start = 0;
 		int index_end = 0;
+		function hadash= new ComplexFunction() ;
 
 		int open = 0;
 		int close = 0;
@@ -94,23 +96,20 @@ public class ComplexFunction implements complex_function {
 			if (close == 0 && open == 0 && psik == 0) { // במקרה שקיבלנו פולינום בלבד
 				function z = new Polynom(s);
 			
-				if(this.left.equals(new Polynom("0")) && this.right==null) {
+				if(this.left.equals(new Polynom("0")) && this.right==null ) {
 					return this.left=z;
 				
 				}
-				else if(this.right==null) {
-					//ComplexFunction xx= new ComplexFunction(z);
-					this.root = newOperation;
+				else if(this.right==null ) {
+					
 					return this.right=z;
 				}
 				else if(this.right!=null && this.left!=null) {
-					ComplexFunction xxx= new ComplexFunction(this.left,this.right, newOperation) ;
-					xxx.root=newOperation;
-					this.left=xxx;
-					return this.right=z;
 					
+					return this.right=z;	
 				}	
 			
+				
 			} else {
 				open = 0;
 				boolean flag = true;
@@ -126,9 +125,8 @@ public class ComplexFunction implements complex_function {
 					else { // s.charAt(i)=='('
 						if (flag) {
 							newOperation =getOpFromString(stringOp);
-							this.root=newOperation;
 							flag = false;
-
+							
 							index_start = i + 1;
 							index_end = s.length();
 						}
@@ -138,15 +136,19 @@ public class ComplexFunction implements complex_function {
 					if (s.charAt(i) == ',' && open == 1) {
 						l = s.substring(index_start, i);
 						r = s.substring(i + 1, index_end-1);
-						return new ComplexFunction(initFromString(l), initFromString(r), newOperation );
+						
+						
+					
+						return new ComplexFunction(initFromString(l), initFromString(r), getOpFromString(stringOp) );
 					}
 				} // end for
 
 			}
 
 		}
+		else
+			throw new  ArithmeticException("eror,wrong input");
 
-//		else //קלט שגוי אפשרי לזרוק שגיאה
 
 		return null;
 	}
@@ -284,11 +286,12 @@ public class ComplexFunction implements complex_function {
 			case ("none"): {
 				return Operation.None;
 			}
-			case ("error"): { //default?
+			default: return Operation.Error;
+				
 			}
 		}
-		return null;
-	}
+		
+	
 	
 	
 	public String toString() {
@@ -310,7 +313,7 @@ public class ComplexFunction implements complex_function {
 		}
 		
 		if(this.right instanceof ComplexFunction ) {
-			return ans+this.right.toString()+","+this.right.toString()+")";
+			return ans+this.left.toString()+","+this.right.toString()+")";
 		}
 		else if(this.right instanceof Polynom ) {
 			Polynom p2 =(Polynom)this.right;
@@ -327,5 +330,20 @@ public class ComplexFunction implements complex_function {
 	
 	
 	
+	
+	public boolean equals(Object obj) {	
+	 if(obj instanceof function ) {
+		 function p1 =(function)obj;	
+			for (double i = -100; i < 100; i=i+0.30) {
+				
+				if(Math.abs(this.f(i)-p1.f(i)) > Monom.EPSILON)
+					return false;
+			}
+	 }	
+	return true;
+	}
+	
 
+	
+	
 }

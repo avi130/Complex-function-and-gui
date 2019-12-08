@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,16 +23,29 @@ public class Monom implements function{
 	}
 	
 	// ***********************************************************************
+	/** 
+	 * this method copies our Monom
+	 * 
+	 */
 	public function copy() {
 		function x= new Monom(this._coefficient, this._power);
 		return x;
 	}
 	
+	/** 
+	 * init a function of type Monom from a String(without multiplication marks between numbers) such as:
+	 * { "x", "5x", "7.2x^3", "4.5"}
+	 * If the user entered incorrect input, the function prints the same input and counts it as zero
+	 * @param s: is a string represents a Monom
+	 */
 	public function initFromString(String s) {
 		function x =new Monom(s);
 		return x;
 	}
-	//**** לקחת רפרנס ולמחוק עברית !!!
+	/** 
+	 * this method checks whether the object is also instanceof Monom and if so he checks if those two Monoms are equal to each other
+	 * @param obj: Represents the object of type Monom we are trying to compare to the our Monom
+	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof Monom) {
 			Monom m= (Monom)obj;

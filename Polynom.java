@@ -1,11 +1,11 @@
-package myMath;
+package Ex1;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-import myMath.Monom;
+import Ex1.Monom;
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
  * 1. Riemann's Integral: https://en.wikipedia.org/wiki/Riemann_integral
@@ -26,11 +26,22 @@ public class Polynom implements Polynom_able{
 		this.poly= new ArrayList<Monom>();
 	}
 //**************************************************************************************
+	@Override
+	/**
+	 * init a function type Polynom from a String such as:
+	 *  {"x", "3+1.4X^3-34x", "(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
+	 * @param s: is a string represents a Polynom
+	 */
 	public function initFromString(String s) {
 		function x= new Polynom(s);
 		return x;
 	}
-	//*** להעתיק רפרנס ולמחוק עברית !
+	
+	@Override
+	/** 
+	 * this method checks whether the object is also instanceof Polynom_able and if so he checks if those two polynomials are equal to each other
+	 * @param obj: Represents the object of type polynom we are trying to compare to the our polynomial
+	 */
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		if(obj instanceof Polynom_able ) {
@@ -66,6 +77,10 @@ public class Polynom implements Polynom_able{
 		int i=0;
 		char t= s.charAt(i);
 		String Monom2="";
+		if(t==' ') {
+			i++;
+			t= s.charAt(i);
+		}
 		while(i<s.length() ) {
 			if( t=='-') {
 				Monom2 += t;
@@ -77,10 +92,17 @@ public class Polynom implements Polynom_able{
 				t= s.charAt(i);
 			}
 			while(t!='+' && t!='-' && i<s.length()) {
+				if(t!=' ') {
 					Monom2 += t;
 					i++;
 					if(i<s.length())
 						t= s.charAt(i);
+				}
+				else
+				{
+					i++;
+					t= s.charAt(i);
+				}
 			
 			}
 			Monom m = new Monom(Monom2);
@@ -137,14 +159,14 @@ public class Polynom implements Polynom_able{
 				this.poly.add(i);
 				flag=false;		
 				Collections.sort(this.poly, x);
+	
 			}
 		}
 		if (flag) {
 			this.poly.add(m1);
 			Collections.sort(this.poly, x);
 		}
-		
-	
+
 	}
 
 	@Override
