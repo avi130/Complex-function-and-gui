@@ -25,11 +25,18 @@ public class ComplexFunction implements complex_function {
 
 	}
 
-	public ComplexFunction(function data1, function data2, Operation root) {
+	public ComplexFunction(Operation root , function data1, function data2) {
 		this.left = data1;
 		this.right = data2;
 		this.root = root;
 	}
+	
+	public ComplexFunction(String rootString , function data1, function data2) {
+		this.left = data1;
+		this.right = data2;
+		this.root = getOpFromString(rootString);
+	}
+	
 	
 
 	@Override
@@ -40,11 +47,10 @@ public class ComplexFunction implements complex_function {
 				return this.left.f(x) + this.right.f(x);
 			}
 			case ("Divid"): {
-				if (this.right.f(x) == 0) {
-					throw new ArithmeticException("you cant divid in ZERO");
-				} else {
-					return this.left.f(x) / this.right.f(x);
-				}
+				if(right.f(x) != 0 )
+                    return left.f(x) / right.f(x);
+                else
+                    throw new ArithmeticException("Can't Divide with zero");
 			}
 			case ("Times"): {
 				return this.left.f(x) * this.right.f(x);
@@ -95,8 +101,8 @@ public class ComplexFunction implements complex_function {
 		if (close == open && open == psik) { // בדיקה של תקינות קלט
 			if (close == 0 && open == 0 && psik == 0) { // במקרה שקיבלנו פולינום בלבד
 				function z = new Polynom(s);
-			
-				if(this.left.equals(new Polynom("0")) && this.right==null ) {
+/*			
+				if((this.left.equals(new Polynom("0"))||this.left==null) && this.right==null ) {
 					return this.left=z;
 				
 				}
@@ -108,7 +114,7 @@ public class ComplexFunction implements complex_function {
 					
 					return this.right=z;	
 				}	
-			
+	*/		return z;
 				
 			} else {
 				open = 0;
@@ -139,7 +145,7 @@ public class ComplexFunction implements complex_function {
 						
 						
 					
-						return new ComplexFunction(initFromString(l), initFromString(r), getOpFromString(stringOp) );
+						return new ComplexFunction( getOpFromString(stringOp), initFromString(l),initFromString(r) );
 					}
 				} // end for
 
@@ -156,14 +162,14 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
-		function newCopy= new ComplexFunction(this.left, this.right, this.root);
+		function newCopy= new ComplexFunction( this.root ,this.left ,this.right);
 		return newCopy;
 	}
 
 	@Override
 	public void plus(function f1) {
 		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
+			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
 			this.left = newleft;
 			this.right = f1;
 			this.root = Operation.Plus;
@@ -177,7 +183,7 @@ public class ComplexFunction implements complex_function {
 	public void mul(function f1) {
 		// TODO Auto-generated method stub
 		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
+			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
 			this.left = newleft;
 			this.right = f1;
 			this.root = Operation.Times;
@@ -190,21 +196,27 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public void div(function f1) {
 		// TODO Auto-generated method stub
-		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
-			this.left = newleft;
-			this.right = f1;
-			this.root = Operation.Divid;
-		} else {
-			this.right = f1;
-			this.root = Operation.Divid;
-		}
+//		if (this.right != null) {
+//			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
+//			this.left = newleft;
+//			this.right = f1;
+//			this.root = Operation.Divid;
+//		} else {
+//			this.right = f1;
+//			this.root = Operation.Divid;
+//		}
+		if(right!=null){
+            ComplexFunction prevComplex = new ComplexFunction(getOp(),left(),right());
+            this.left =  prevComplex;
+        }
+        this.right = new ComplexFunction(f1);
+        this.root =Operation.Divid;
 	}
 
 	@Override
 	public void max(function f1) {
 		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
+			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
 			this.left = newleft;
 			this.right = f1;
 			this.root = Operation.Max;
@@ -217,7 +229,7 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public void min(function f1) {
 		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
+			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
 			this.left = newleft;
 			this.right = f1;
 			this.root = Operation.Min;
@@ -232,7 +244,7 @@ public class ComplexFunction implements complex_function {
 	public void comp(function f1) {
 		// TODO Auto-generated method stub
 		if (this.right != null) {
-			ComplexFunction newleft = new ComplexFunction(this.left, this.right, this.root);
+			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
 			this.left = newleft;
 			this.right = f1;
 			this.root = Operation.Comp;
@@ -268,10 +280,19 @@ public class ComplexFunction implements complex_function {
 			case ("plus"): {
 				return Operation.Plus;
 			}
+			case ("add"): {
+				return Operation.Plus;
+			}
 			case ("divid"): {
 				return Operation.Divid;
 			}
+			case ("div"): {
+				return Operation.Divid;
+			}
 			case ("times"): {
+				return Operation.Times;
+			}
+			case ("mul"): {
 				return Operation.Times;
 			}
 			case ("max"): {
@@ -298,7 +319,7 @@ public class ComplexFunction implements complex_function {
 		String ans="";
 		ans +=this.root.toString();
 		ans+='(';
-		if(this.left instanceof ComplexFunction ) {
+		if(this.left instanceof ComplexFunction || this.right instanceof ComplexFunction) {
 			return ans+this.left.toString()+","+this.right.toString()+")";
 		}
 		else if(this.left instanceof Polynom ) {
@@ -315,7 +336,7 @@ public class ComplexFunction implements complex_function {
 		if(this.right instanceof ComplexFunction ) {
 			return ans+this.left.toString()+","+this.right.toString()+")";
 		}
-		else if(this.right instanceof Polynom ) {
+		 if(this.right instanceof Polynom ) {
 			Polynom p2 =(Polynom)this.right;
 			ans+= p2.toString();	
 		}
@@ -334,7 +355,12 @@ public class ComplexFunction implements complex_function {
 	public boolean equals(Object obj) {	
 	 if(obj instanceof function ) {
 		 function p1 =(function)obj;	
-			for (double i = -100; i < 100; i=i+0.30) {
+			for (double i = -100; i < 0; i=i+0.30) {
+				
+				if(Math.abs(this.f(i)-p1.f(i)) > Monom.EPSILON)
+					return false;
+			}
+			for (double i =0.3; i < 100; i=i+0.30) {
 				
 				if(Math.abs(this.f(i)-p1.f(i)) > Monom.EPSILON)
 					return false;

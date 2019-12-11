@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 
 
@@ -94,7 +97,7 @@ public class Functions_GUI implements functions   {
 		// TODO Auto-generated method stub
 		return list.size();
 	}
-
+	
 	@Override
 	public Object[] toArray() {
 		// TODO Auto-generated method stub
@@ -112,59 +115,121 @@ public class Functions_GUI implements functions   {
 	
 	
 	@Override
+//	public void initFromFile(String file) throws IOException {
+//		// TODO Auto-generated method stub
+//		
+//		
+//		BufferedReader bf= new BufferedReader(new FileReader(file));
+//		String hadash="";
+//		while ((hadash=bf.readLine()) !=null) {
+//			function t= new ComplexFunction().initFromString(hadash);
+//			list.add(t);
+//			
+//		}
+//		bf.close();
+//		
+//	}
 	public void initFromFile(String file) throws IOException {
-		// TODO Auto-generated method stub
+		String line = "";
 		
-		
-		BufferedReader bf= new BufferedReader(new FileReader(file));
-		String hadash="";
-		while ((hadash=bf.readLine()) !=null) {
-			function t= new ComplexFunction().initFromString(hadash);
-			list.add(t);
-			
-		}
-		bf.close();
+        try 
+        {
+        	BufferedReader br = new BufferedReader(new FileReader(file));
+        	
+            while ((line = br.readLine()) != null) 
+            {
+                String info = line.toString();
+                function f = new ComplexFunction().initFromString(info);
+               // f.initFromString(info);
+                add(f);
+            }
+            br.close();
+
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+            System.out.println("could not read file");
+        }
 		
 	}
 
 	@Override
 	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-		PrintWriter print=new PrintWriter(file);
-		for (int i = 0; i < list.size(); i++) {
-			print.println(list.get(i).toString());
-		}
-		print.close();
+		// TODO Auto-generated method stub		
+		try 
+		{
+			PrintWriter pw = new PrintWriter(new File(file));
 			
-		}
+			StringBuilder sb = new StringBuilder();
+			int i=0;
+			while (this.list.size()>i) {
+				String s=this.list.get(i).toString();
+				sb.append(s);
+				sb.append("\n");
+				i++;
+			}
 
+			pw.write(sb.toString());
+			pw.close();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+			return;
+		}
+		}
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		// TODO Auto-generated method stub
 		StdDraw.setCanvasSize(width, height);
-		StdDraw.setPenColor(StdDraw.BOOK_RED);
-		StdDraw.setPenRadius();
+		StdDraw.setPenRadius(0.005);
 		StdDraw.setFont();
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
 		int size= this.list.size();
-		double x=0;
-		for (int i=0; i <list.size() ;i++) {
-			StdDraw.line(list.get(i).f(x), 1, list.get(i+1).f(x+0.035), 1);
-			x=x+0.035;
-			
+		double step = (rx.get_max()-rx.get_min())/resolution;
+		
+		for (int i=0; i <size ;i++) {
+		
+			StdDraw.setPenColor(Colors[i % Colors.length]);
+			for(double x=rx.get_min(); x<rx.get_max(); x+=step) {
+				double f0 = list.get(i).f(x);
+				double f1 = list.get(i).f(x+step);
+				//if(f0>ry.get_min() && f0<ry.get_max() && f0>ry.get_min() && f0<ry.get_max())
+					StdDraw.line(x, f0, x+step, f1);
+					
+			}
 		}
-		
-		
+			
+	}
+	public class GUIparameters{
+		int Width = 1000;
+		int Height = 600;
+		Range Range_X = new Range (-10, 10);
+		Range Range_Y = new Range (-15, 5);
+		int Resolution = 200;
 		
 	}
-
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
+		Gson gson = new Gson();
 		
+		try 
+		{
+			FileReader reader = new FileReader(json_file);
+			GUIparameters param = gson.fromJson(reader,GUIparameters.class);
+			drawFunctions(param.Width, param.Height, param.Range_X, param.Range_Y, param.Resolution);
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public function get(int i) {
+		// TODO Auto-generated method stub
+		return list.get(i);
 	}
 
 }

@@ -129,17 +129,16 @@ public class PolynomTestEvgeny {
 		}
 		Polynom add = new Polynom();
 		Polynom substract = new Polynom();
-		
 		add = (Polynom) p1.copy();
-		System.out.println();
-		System.out.println(add);
+	
+	
 		substract = (Polynom)p1.copy();
 		
 		add.add(p2);
-		System.out.println();
-		System.out.println();
-		System.out.println(add);
+		
+		
 		substract.substract(p2);
+	
 		if (!add.equals(p3)) {
 			fails++;
 			System.out.println("fail add");

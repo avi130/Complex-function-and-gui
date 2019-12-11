@@ -47,7 +47,7 @@ public class Monom implements function{
 	 * @param obj: Represents the object of type Monom we are trying to compare to the our Monom
 	 */
 	public boolean equals(Object obj) {
-		if (obj instanceof Monom) {
+		if (obj instanceof Monom || obj==new Monom("0")) {
 			Monom m= (Monom)obj;
 			
 			if (( m._coefficient == get_coefficient())&&(get_coefficient()==0))

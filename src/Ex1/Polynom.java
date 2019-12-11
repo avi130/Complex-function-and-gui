@@ -47,9 +47,10 @@ public class Polynom implements Polynom_able{
 		if(obj instanceof Polynom_able ) {
 			Polynom_able p1 =(Polynom_able)obj;
 			boolean flag = false ;
+			
 			Iterator<Monom> polynom_new = p1.iteretor();
 			Iterator<Monom> polynom_old = this.poly.iterator();
-			while(polynom_new.hasNext() ) {
+			while(polynom_new.hasNext()) {
 				Monom i =polynom_new.next();
 				flag=false;
 				while(polynom_old.hasNext()&& flag==false) {
@@ -61,6 +62,8 @@ public class Polynom implements Polynom_able{
 						return false;
 				}
 			}
+			if(polynom_old.hasNext())
+				return false;
 			return true;
 		}
 		else throw new ArithmeticException ("your object is not a Polynom");	
@@ -148,25 +151,31 @@ public class Polynom implements Polynom_able{
 	 */
 	public void add(Monom m1) {
 		// TODO Auto-generated method stub
-		Iterator<Monom> polynom = this.poly.iterator();
-		boolean flag=true;
-		Monom_Comperator x = new Monom_Comperator();
-		while(polynom.hasNext() && flag==true) {
-			Monom i = (Monom)polynom.next();
-			if(m1.get_power() == i.get_power() ) {
-				this.poly.remove(poly.indexOf(i));
-				i.add(m1);
-				this.poly.add(i);
-				flag=false;		
-				Collections.sort(this.poly, x);
-	
+		Iterator<Monom> iter = iteretor();
+		while(iter.hasNext() && !poly.isEmpty()) {
+			Monom run = iter.next();
+			if(run.get_power()==m1.get_power()) {
+				run.add(new Monom(m1));
+				return;
 			}
 		}
-		if (flag) {
-			this.poly.add(m1);
-			Collections.sort(this.poly, x);
+		poly.add(new Monom(m1));
+		Monom_Comperator mc = new Monom_Comperator();
+		this.poly.sort(mc);
+		zeroCorrection();
+
+	}
+	public void zeroCorrection() {
+		Iterator<Monom> iter = iteretor();
+		while(iter.hasNext()) {
+			Monom run = iter.next();
+			if(run.get_coefficient()==0) {
+				iter.remove();
+			}
 		}
 
+		Monom_Comperator mc = new Monom_Comperator();
+		this.poly.sort(mc);
 	}
 
 	@Override
@@ -358,7 +367,7 @@ public class Polynom implements Polynom_able{
 		Polynom temp= new Polynom();
 		Iterator<Monom> polynom= this.poly.iterator();
 		while(polynom.hasNext()) {
-			Monom x= (Monom)polynom.next();
+			Monom x= polynom.next();
 			x.multipy(m1);
 			temp.poly.add(x);
 

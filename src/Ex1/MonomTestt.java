@@ -98,7 +98,19 @@ class MonomTestt {
 		assertTrue(monoms1.equals(monoms1));
 		assertTrue(monoms3.equals(monoms4));
 	}
+	@Test
+	void testDerivativeMonom() {
+		Monom M1 = new Monom("3x^3");
+		Monom Result = new Monom("9x^2");
 		
+		Monom newMonom = M1.derivative();
+		assertTrue(newMonom.equals(Result));
+	}
+	@Test
+	void testNonEmptyMonom() {
+		Monom M1 = new Monom("3x^3");
+		assertNotNull(M1);
+	}
 }
 	
 
