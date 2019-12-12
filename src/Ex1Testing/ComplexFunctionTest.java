@@ -20,7 +20,7 @@ class ComplexFunctionTest {
         ComplexFunction cf = new ComplexFunction("plus", m1,m2);
         //	System.out.println(cf);
         cf.mul(m2);
-        System.out.println(cf);
+        //System.out.println(cf);
         Polynom p = new Polynom();
         p.add(m1);
         p.add(m2);
@@ -85,7 +85,49 @@ class ComplexFunctionTest {
             double d5 = cf5.f(x);
             assertEquals(d,d5,EPS);
         }
-        System.out.println(cf4);
-        System.out.println(cf5);
+   
     }
+    @Test
+    void mytest4() {
+    	Monom m1 = new Monom(2.6,5);
+        Monom m2 = new Monom(3,1);
+        ComplexFunction cf = new ComplexFunction("plus", m1,m2);
+        cf.mul(m2);
+        //System.out.println(cf);
+        Polynom p = new Polynom();
+        p.add(m1);
+        p.add(m2);
+        p.multiply(m2);
+        function cf3 = new ComplexFunction("plus",p,p);
+        //System.out.println(cf3);
+        assertTrue(cf3.equals(new ComplexFunction().initFromString("Plus(9.0x^2+7.800000000000001x^6,9.0x^2+7.800000000000001x^6)")));
+        }
+    @Test
+    void mytest5() {
+    	Monom m1 = new Monom(5.5,2);
+        Monom m2 = new Monom(3,0);
+          
+    	Polynom p1 = new Polynom("5.5x^2");
+        Polynom p2 = new Polynom("3x^0");
+         
+        ComplexFunction cf = new ComplexFunction("plus", m1,m2);
+        ComplexFunction cf3 = new ComplexFunction("plus", p1,p2);
+      
+        cf.mul(m2);
+        cf3.mul(m2);
+        
+        function x= cf.copy();
+        function y =cf3.copy();
+        
+        String s = cf.toString();
+        function cf2 = cf.initFromString(s);
+        if(!x.equals(cf2)) {
+            fail("ERR: "+cf+" should be equals to "+cf2);
+        }
+        if(!x.equals(y)) {
+            fail("ERR: "+cf+" should be equals to "+y);
+        }
+		
+        }
+    
 }

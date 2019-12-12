@@ -1,5 +1,6 @@
 package Ex1Testing;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -32,10 +33,7 @@ import Ex1.functions;
 class Functions_GUITest {
 	public static void main(String[] a) {
 		functions data = FunctionsFactory();
-	//	int w=1000, h=600, res=200;
-	//	Range rx = new Range(-10,10);
-	//	Range ry = new Range(-5,15);
-//		data.drawFunctions(w,h,rx,ry,res);
+
 		String file = "function_file1.txt";
 		String file2 = "function_file2.txt";
 		try {
@@ -124,4 +122,6 @@ class Functions_GUITest {
 		ans.add(min);		
 		return ans;
 	}
+
+	
 }
