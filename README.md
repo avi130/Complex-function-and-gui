@@ -1,8 +1,8 @@
-# monhe-matalot
+# monhe-matalot Ex1
 **The func Momon(String s) init a Monom from a String *(without multiplication marks between numbers or space in the String )* :
     X && x are acceptable. For example:
     {"x", "5X", "7.2x^3", "-4.5"} is good
-    {" x", "5*x", "7..2x^3", "4.5^2x"} is bad !!
+    {"x^-1", "5*x", "7..2x^3", "4.5^2x"} is bad !!
 If the user entered incorrect input, he function will show an error (works with try& catch) and will not calculate the monom.
 
 **The equals func Compares two monoms in approximate of epsilon.
@@ -17,4 +17,8 @@ If some of the input is incorrect the function will show an error
 
 **Next to any function ther are explanation for what the function does and what are the inputs & outputs.
 
-**In the ROOT&Momon func if the input is wrong the func throws"Exception". That why in the Tester we use try&catch.
+**In the ROOT&Momon func if the input is wrong the func throws"Exception". That why in the Tester we use try&catch.  
+
+**Complex function represents a complex function of type y=g(f1(x), f2(x)). where both f1, f2 are functions (or complex functions), y and x are real numbers and g is an operation  
+
+** This class Can read and save from/to file your Functions and give a Visual Imaging of your Functions(graph) by using gui stdDraw to draw the function graph
