@@ -22,7 +22,6 @@ public class Monom implements function{
 		this.set_power(b);	
 	}
 	
-	// ***********************************************************************
 	/** 
 	 * this method copies our Monom
 	 * 
@@ -61,7 +60,6 @@ public class Monom implements function{
 			}
 		else throw new ArithmeticException ("your object is not a Monom");	
 	}
-	// ************************************************************************
 	/** 
 	 * this method copies an existing monom
 	 * @param ot : existing monom
@@ -84,7 +82,7 @@ public class Monom implements function{
 		return this._power;
 	}
 	/** 
-	 * this method returns the derivative monom of this.
+	 * this method returns the derivative monom of this monom.
 	 * @return
 	 */
 	public Monom derivative() {  

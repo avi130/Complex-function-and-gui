@@ -15,6 +15,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 
@@ -23,7 +25,9 @@ import java.io.BufferedReader;
 public class Functions_GUI implements functions   {
 	
 	
- LinkedList<function> list= new LinkedList<function>();
+ //LinkedList<function> list= new LinkedList<function>();
+	LinkedList<function> list;
+	
  
 	public Functions_GUI() {
 		list = new LinkedList<function>();
@@ -115,46 +119,44 @@ public class Functions_GUI implements functions   {
 	
 	
 	@Override
-//	public void initFromFile(String file) throws IOException {
-//		// TODO Auto-generated method stub
-//		
-//		
-//		BufferedReader bf= new BufferedReader(new FileReader(file));
-//		String hadash="";
-//		while ((hadash=bf.readLine()) !=null) {
-//			function t= new ComplexFunction().initFromString(hadash);
-//			list.add(t);
-//			
-//		}
-//		bf.close();
-//		
-//	}
-	public void initFromFile(String file) throws IOException {
-		String line = "";
-		
-        try 
+	/**
+	* This method gets a text file string, reads it, and puts all the functions in the file into the gui list
+	@param file represents the file we received
+	*/
+	public void initFromFile(String file) throws IOException {	
+		// TODO Auto-generated method stub
+		try 
         {
-        	BufferedReader br = new BufferedReader(new FileReader(file));
-        	
-            while ((line = br.readLine()) != null) 
-            {
-                String info = line.toString();
-                function f = new ComplexFunction().initFromString(info);
-               // f.initFromString(info);
-                add(f);
-            }
-            br.close();
+        	BufferedReader br = new BufferedReader(new FileReader(file));     
+        	String line = br.readLine();
 
-        } 
+            while (line != null ) {
+    			int indexFx = line.indexOf("f(x)=");
+    			if (indexFx != -1) { 
+    				line = line.substring(indexFx+"f(x)=".length() ,line.length()); 
+    			}
+    			function f = new ComplexFunction().initFromString(line);
+    			list.add(f); 
+    			
+    			line = br.readLine();
+    		}
+            br.close();
+            }
         catch (IOException e) 
         {
             e.printStackTrace();
             System.out.println("could not read file");
         }
-		
 	}
 
+	
+	
+	
 	@Override
+	/**
+	* This method obtains a text file string and saves all the functions in the file to the gui list
+	@param file represents the file we received
+	*/
 	public void saveToFile(String file) throws IOException {
 		// TODO Auto-generated method stub		
 		try 
@@ -164,12 +166,10 @@ public class Functions_GUI implements functions   {
 			StringBuilder sb = new StringBuilder();
 			int i=0;
 			while (this.list.size()>i) {
-				String s=this.list.get(i).toString();
-				sb.append(s);
-				sb.append("\n");
-				i++;
+				function f = list.get(i);
+				pw.write(i + ") " + "f(x)=" + f.toString() + '\n');
+				i++;	
 			}
-
 			pw.write(sb.toString());
 			pw.close();
 		} 
@@ -178,58 +178,106 @@ public class Functions_GUI implements functions   {
 			e.printStackTrace();
 			return;
 		}
+		
 		}
+	
+	
+	
+	
 	@Override
+	/**
+	* This method recuves 4 variables representing height, width, resolution, X range and y range and draws the functions according to the variables we received.
+	@param height represents the Canvas height 
+	@param width represents the length range of the Canvas
+	@param resolution The resolution we want you to draw
+	@param rx, ry - The range of x and y in the drawing
+	*/
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
+		// TODO Auto-generated method stub
+		double  front;
+		double Behind;
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.setPenRadius(0.005);
 		StdDraw.setFont();
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
-		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
-		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
-		int size= this.list.size();
-		double step = (rx.get_max()-rx.get_min())/resolution;
-		
-		for (int i=0; i <size ;i++) {
-		
-			StdDraw.setPenColor(Colors[i % Colors.length]);
-			for(double x=rx.get_min(); x<rx.get_max(); x+=step) {
-				double f0 = list.get(i).f(x);
-				double f1 = list.get(i).f(x+step);
-				//if(f0>ry.get_min() && f0<ry.get_max() && f0>ry.get_min() && f0<ry.get_max())
-					StdDraw.line(x, f0, x+step, f1);
-					
+
+		for (int i = (int)ry.get_min(); i < ry.get_max(); i++) {
+			if(i != 0) {				
+			StdDraw.line(-0.2, i, 0.2, i);
+			StdDraw.text(0.4, i, i+"");
 			}
 		}
-			
-	}
-	public class GUIparameters{
-		int Width = 1000;
-		int Height = 600;
-		Range Range_X = new Range (-10, 10);
-		Range Range_Y = new Range (-15, 5);
-		int Resolution = 200;
+		for (int j = (int)rx.get_min(); j < rx.get_max(); j++) {
+			if(j != 0) {
+			StdDraw.text(j, -0.5, j+"");
+			StdDraw.line(j, -0.2, j, 0.2);
+			}
+		}
+		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
+		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
 		
-	}
-	@Override
-	public void drawFunctions(String json_file) {
-		Gson gson = new Gson();
 		
-		try 
-		{
-			FileReader reader = new FileReader(json_file);
-			GUIparameters param = gson.fromJson(reader,GUIparameters.class);
-			drawFunctions(param.Width, param.Height, param.Range_X, param.Range_Y, param.Resolution);
-		} 
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
+		double step = (rx.get_max()-rx.get_min())/resolution;
+		
+		for (int i = 0; i < size(); i++) {
+			StdDraw.setPenColor(Colors[i % Colors.length]);
+			try {
+				Behind =  get(i).f(rx.get_min());
+				
+			} catch (Exception e) {
+				Behind=Integer.MIN_VALUE;
+			}
+			for (double x = rx.get_min(); x < rx.get_max(); x += step) {
+				try {
+					front =  get(i).f(x+step);
+					if(Behind != Integer.MIN_VALUE && front != Integer.MIN_VALUE)
+						StdDraw.line(x, Behind, x+step, front);
+				}
+				catch (Exception e)
+				{
+					front = Integer.MIN_VALUE;
+				} 
+				Behind = front;										
+				
+			}	
 		}
 	}
-
-	public function get(int i) {
+	
+	private function get(int i) {
 		// TODO Auto-generated method stub
 		return list.get(i);
 	}
+	/**
+	* This method obtains a JSON file string and calls the drawing function with the variables extracted from the JSON file
+	@param json_file The string of the JSON file we receive and from which we take the variables to the drawing function
+	*/
+	@Override
+	
+	public void drawFunctions(String json_file) {
+		// TODO Auto-generated method stub
+		Gson gson = new Gson();
+        try {
 
+            BufferedReader br = new BufferedReader(new FileReader(json_file));
+ 
+            JsonObject objectParams = gson.fromJson(br, JsonObject.class);
+            
+            int height = objectParams.get("Height").getAsInt();
+            int width = objectParams.get("Width").getAsInt();
+            Range rx, ry;
+            JsonArray rangePara = objectParams.get("Range_X").getAsJsonArray();
+            rx = new Range(rangePara.get(0).getAsInt(), rangePara.get(1).getAsInt());
+            rangePara = objectParams.get("Range_Y").getAsJsonArray();
+            ry = new Range(rangePara.get(0).getAsInt(), rangePara.get(1).getAsInt());
+            int resolution = objectParams.get("Resolution").getAsInt();
+            
+            drawFunctions(width, height, rx, ry, resolution);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	
+	}
+	
 }

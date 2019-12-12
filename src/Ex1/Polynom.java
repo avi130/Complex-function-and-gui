@@ -25,7 +25,6 @@ public class Polynom implements Polynom_able{
 	public Polynom() {
 		this.poly= new ArrayList<Monom>();
 	}
-//**************************************************************************************
 	@Override
 	/**
 	 * init a function type Polynom from a String such as:
@@ -70,7 +69,6 @@ public class Polynom implements Polynom_able{
 }
 
 
-//***************************************************************************************
 	/**
 	 * init a Polynom from a String such as:
 	 *  {"x", "3+1.4X^3-34x", "(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
