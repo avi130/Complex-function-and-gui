@@ -21,4 +21,4 @@ If some of the input is incorrect the function will show an error
 
 **Complex function represents a complex function of type y=g(f1(x), f2(x)). where both f1, f2 are functions (or complex functions), y and x are real numbers and g is an operation  
 
-** This class Can read and save from/to file your Functions and give a Visual Imaging of your Functions(graph) by using gui stdDraw to draw the function graph
+**function gui- This class Can read and save from/to file your Functions and give a Visual Imaging of your Functions(graph) by using gui stdDraw to draw the function graph
