@@ -122,6 +122,5 @@ class Functions_GUITest {
 		ans.add(min);		
 		return ans;
 	}
-
 	
 }
