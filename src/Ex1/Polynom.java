@@ -22,25 +22,28 @@ public class Polynom implements Polynom_able{
 	 * Zero (empty polynom)
 	 *
 	 */
+	
 	public Polynom() {
 		this.poly= new ArrayList<Monom>();
 	}
-	@Override
+	
 	/**
 	 * init a function type Polynom from a String such as:
 	 *  {"x", "3+1.4X^3-34x", "(2x^2-4)*(-1.2x-7.1)", "(3-3.4x+1)*((3.1x-1.2)-(3X^2-3.1))"};
 	 * @param s: is a string represents a Polynom
 	 */
+	@Override
 	public function initFromString(String s) {
 		function x= new Polynom(s);
 		return x;
 	}
 	
-	@Override
+	
 	/** 
 	 * this method checks whether the object is also instanceof Polynom_able and if so he checks if those two polynomials are equal to each other
 	 * @param obj: Represents the object of type polynom we are trying to compare to the our polynomial
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		if(obj instanceof Polynom_able ) {
@@ -111,11 +114,12 @@ public class Polynom implements Polynom_able{
 			Monom2="";		
 		}
 	}
-	@Override
+	
 	/** 
 	 * this method  calculates the polynomial 
 	 * @param x: The variable of value with which we calculate the polynomial 
 	 */
+	@Override
 	public double f(double x) {
 		// TODO Auto-generated method stub
 		double ans= 0;
@@ -128,11 +132,12 @@ public class Polynom implements Polynom_able{
 		return ans;
 	}
 
-	@Override
+	
 	/** 
 	 * this method  performs an adding operation between 2 polynomials
 	 * @param p1: Represents the polynomial we add to our old polynom
 	 */
+	@Override
 	public void add(Polynom_able p1) {
 		// TODO Auto-generated method stub
 		Iterator<Monom> polynom_new = p1.iteretor();
@@ -142,11 +147,12 @@ public class Polynom implements Polynom_able{
 		}
 	}
 
-	@Override
+	
 	/** 
 	 * this method  performs an adding operation between  polynomial and monom
 	 * @param m1: Represents the monom we add to the given polynomial
 	 */
+	@Override
 	public void add(Monom m1) {
 		// TODO Auto-generated method stub
 		Iterator<Monom> iter = iteretor();
@@ -176,11 +182,12 @@ public class Polynom implements Polynom_able{
 		this.poly.sort(mc);
 	}
 
-	@Override
+	
 	/** 
 	 * this method performs an subtract operation between 2 polynomials
 	 * @param p1: Represents the polynomial we subtract from the given polynomial
 	 */
+	@Override
 	public void substract(Polynom_able p1) {
 		// TODO Auto-generated method stub
 		Iterator<Monom> polynom_new = p1.iteretor();
@@ -192,11 +199,12 @@ public class Polynom implements Polynom_able{
 		}
 	}
 
-	@Override
+	
 	/** 
 	 * this method multiplies two polynomials
 	 * @param p1: Represents the polynomial we multiply in the given polynomial
 	 */
+	@Override
 	public void multiply(Polynom_able p1) {
 		// TODO Auto-generated method stub
 		Polynom x = new Polynom();
@@ -213,11 +221,11 @@ public class Polynom implements Polynom_able{
 		this.poly=x.poly;
 	}
 
-	//@Override
-	/** 
-	 * this method checks whether two polynomials are equal to each other
-	 * @param p1: Represents the polynomial we are trying to compare to the given polynomial
-	 */
+	
+//	/** 
+//	 * this method checks whether two polynomials are equal to each other
+//	 * @param p1: Represents the polynomial we are trying to compare to the given polynomial
+//	 */
 //	public boolean equals(Polynom_able p1) {
 //		// TODO Auto-generated method stub
 //		boolean flag = false ;
@@ -238,11 +246,12 @@ public class Polynom implements Polynom_able{
 //		return true;
 //	}
 
-	@Override
+	
 	/** 
 	 * this method checks if our Polynomial equal to 0
 	 * 
 	 */
+	@Override
 	public boolean isZero() {
 		// TODO Auto-generated method stub
 		Iterator<Monom> zero = this.poly.iterator();
@@ -256,11 +265,12 @@ public class Polynom implements Polynom_able{
 		return flag;
 	}
 
-	@Override
+	
 	/** 
 	 * this method checks if there is a point function on the x axis between x0, x1 of exactly up to eps
 	 * @param x0,x1: Represents Points on the graph
 	 * @param eps : Represents the level of accuracy required to reach a solution **/
+	@Override
 	public double root(double x0, double x1, double eps) {
 		// TODO Auto-generated method stub
 			 if ( f(x0)*f(x1) > 0)
@@ -293,11 +303,12 @@ public class Polynom implements Polynom_able{
          return root(x0,x1,eps);	
 	}
 
-	@Override
+	
 	/** 
 	 * this method copies our polynomial
 	 * 
 	 */
+	@Override
 	public Polynom_able copy() {
 		// TODO Auto-generated method stub
 		Iterator <Monom> old = this.iteretor();
@@ -309,11 +320,12 @@ public class Polynom implements Polynom_able{
 		return copy;
 	}
 
-	@Override
+	
 	/** 
 	 * this method makes a derivative of polynomial
 	 * 
 	 */
+	@Override
 	public Polynom_able derivative() {
 		// TODO Auto-generated method stub
 		Polynom_able x= new Polynom();
@@ -325,11 +337,13 @@ public class Polynom implements Polynom_able{
 		return x;
 	}
 
-	@Override
+	
 	/** 
 	 * this method finds an area between 2 points and above the X axis
 	 * @param x0,x1: Represents Points on the graph
-	 * @param eps : Represents the level of accuracy required to reach a solution **/
+	 * @param eps : Represents the level of accuracy required to reach a solution
+	  */
+	@Override
 	public double area(double x0, double x1, double eps) {
 		// TODO Auto-generated method stub
 		double s=x0;
@@ -345,21 +359,23 @@ public class Polynom implements Polynom_able{
 		return areaa;
 	}
 
-	@Override
+	
 	/** 
 	 * this method goes through every organ in the polynomial and with its help us know what is the organ
 	 * 
 	 */
+	@Override
 	public Iterator<Monom> iteretor() {
 		// TODO Auto-generated method stub
 		return	poly.iterator();
 
 	}
-	@Override
+	
 	/** 
 	 * this method multiplies polynomial and monom
 	 * @param m1: Represents the monom we multiply with the given polynomial
 	 */
+	@Override
 	public void multiply(Monom m1) {
 		// TODO Auto-generated method stub
 		Polynom temp= new Polynom();
@@ -379,6 +395,7 @@ public class Polynom implements Polynom_able{
 	 * this method prints the polynomial
 	 * 
 	 */
+	@Override
 	public String toString() {
 		String ans="";
 		Iterator<Monom> polynom= this.poly.iterator();

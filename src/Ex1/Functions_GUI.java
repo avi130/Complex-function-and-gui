@@ -118,11 +118,12 @@ public class Functions_GUI implements functions   {
 	
 	
 	
-	@Override
+	
 	/**
 	* This method gets a text file string, reads it, and puts all the functions in the file into the gui list
 	@param file represents the file we received
 	*/
+	@Override
 	public void initFromFile(String file) throws IOException {	
 		// TODO Auto-generated method stub
 		try 
@@ -152,11 +153,12 @@ public class Functions_GUI implements functions   {
 	
 	
 	
-	@Override
+	
 	/**
 	* This method obtains a text file string and saves all the functions in the file to the gui list
 	@param file represents the file we received
 	*/
+	@Override
 	public void saveToFile(String file) throws IOException {
 		// TODO Auto-generated method stub		
 		try 
@@ -184,7 +186,7 @@ public class Functions_GUI implements functions   {
 	
 	
 	
-	@Override
+	
 	/**
 	* This method recuves 4 variables representing height, width, resolution, X range and y range and draws the functions according to the variables we received.
 	@param height represents the Canvas height 
@@ -192,6 +194,7 @@ public class Functions_GUI implements functions   {
 	@param resolution The resolution we want you to draw
 	@param rx, ry - The range of x and y in the drawing
 	*/
+	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 		// TODO Auto-generated method stub
 		double  front;
@@ -248,12 +251,12 @@ public class Functions_GUI implements functions   {
 		// TODO Auto-generated method stub
 		return list.get(i);
 	}
+	
 	/**
 	* This method obtains a JSON file string and calls the drawing function with the variables extracted from the JSON file
 	@param json_file The string of the JSON file we receive and from which we take the variables to the drawing function
 	*/
 	@Override
-	
 	public void drawFunctions(String json_file) {
 		// TODO Auto-generated method stub
 		Gson gson = new Gson();

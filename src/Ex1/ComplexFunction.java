@@ -63,11 +63,12 @@ public class ComplexFunction implements complex_function {
 	
 	
 
-	@Override
+	
 	/**
 	* This method obtains an X value and calculates the function
 	@param x represents the value by which the function value is calculated
 	*/
+	@Override
 	public double f(double x) {
 		// TODO Auto-generated method stub
 		switch (root.toString() ) {
@@ -104,11 +105,12 @@ public class ComplexFunction implements complex_function {
 	
 	Operation newOperation = Operation.None;
 	
-	@Override
+	
 	/**
 	* This method reads the string and transforms it into a complex function or a complex function that contains several complex functions
 	@param s represents the string that we turn into a function
 	*/
+	@Override
 	public function initFromString(String s) {
 		//Operation newOperation = Operation.None;
 		// TODO Auto-generated method stub
@@ -191,21 +193,23 @@ public class ComplexFunction implements complex_function {
 		return null;
 	}
 
-	@Override
+	
 	/**
 	* This method copies and creates a new complex function
 	*/
+	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
 		function newCopy= new ComplexFunction( this.root ,this.left ,this.right);
 		return newCopy;
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the plus Operation	
 	@Param  f1 - the function that will get the plus Operation with our Complex Function
 	*/
+	@Override
 	public void plus(function f1) {
 		if (this.right != null) {
 			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
@@ -218,11 +222,12 @@ public class ComplexFunction implements complex_function {
 		}
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the mul Operation	
 	@Param  f1 - the function that will get the mul Operation with our Complex Function
 	*/
+	@Override
 	public void mul(function f1) {
 		// TODO Auto-generated method stub
 		if (this.right != null) {
@@ -236,11 +241,12 @@ public class ComplexFunction implements complex_function {
 		}
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the Divid Operation	
 	@Param  f1 - the function that will get the Divid Operation with our Complex Function
 	*/
+	@Override
 	public void div(function f1) {
 		// TODO Auto-generated method stub
 		if (this.right != null) {
@@ -254,11 +260,12 @@ public class ComplexFunction implements complex_function {
 		}
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the Max Operation	
 	@Param  f1 - the function that will get the MAx Operation with our Complex Function
 	*/
+	@Override
 	public void max(function f1) {
 		if (this.right != null) {
 			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
@@ -271,11 +278,12 @@ public class ComplexFunction implements complex_function {
 		}
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the Min Operation	
 	@Param  f1 - the function that will get the Min Operation with our Complex Function
 	*/
+	@Override
 	public void min(function f1) {
 		if (this.right != null) {
 			ComplexFunction newleft = new ComplexFunction( this.root ,this.left ,this.right);
@@ -289,11 +297,12 @@ public class ComplexFunction implements complex_function {
 
 	}
 
-	@Override
+	
 	/**
 	*This Method can get 2 Complex Functions ans give them the Comp Operation
 	@Param f1 - the function that will get the Comp Operation with our Complex Function
 	*/
+	@Override
 	public void comp(function f1) {
 		// TODO Auto-generated method stub
 		if (this.right != null) {
@@ -308,30 +317,33 @@ public class ComplexFunction implements complex_function {
 		
 	}
 
-	@Override
+	
 	/**
 	* This method returns a pointer to the left function
 	*/
+	@Override
 	public function left() {
 		// TODO Auto-generated method stub
 		
 		return this.left;
 	}
 
-	@Override
+	
 	/**
 	* This method returns a pointer to the right function
 	*/
+	@Override
 	public function right() {
 		// TODO Auto-generated method stub
 		return this.right;
 	}
 	
-	@Override
+	
 	/**
 	* This method returns a pointer to the operator
 
 	*/
+	@Override
 	public Operation getOp() {
 		// TODO Auto-generated method stub
 		return this.root;
@@ -341,6 +353,7 @@ public class ComplexFunction implements complex_function {
 	* This method gets a string and makes it an operator.
 	@param x the string that Hita accepts and we make it an operator
 	*/
+	
 	public Operation getOpFromString(String x) {
 		String y=x.toLowerCase();
 		switch (y) {
@@ -384,6 +397,7 @@ public class ComplexFunction implements complex_function {
 	/**
 	* This method prints the function
 	*/
+	@Override
 	public String toString() {
 		String ans="";
 		if(this.root!= Operation.None) {
@@ -457,6 +471,7 @@ public class ComplexFunction implements complex_function {
 	@param obj The object we get and with which we make the comparison
 
 	*/
+	@Override
 	public boolean equals(Object obj) {	
 	 if(obj instanceof function ) {
 		 function p1 =(function)obj;	
