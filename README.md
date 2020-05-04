@@ -1,4 +1,4 @@
-# monhe-matalot Ex1
+# Complex function &gui 
 **The func Momon(String s) init a Monom from a String *(without multiplication marks between numbers or space in the String )* :
     X && x are acceptable. For example:
     {"x", "5X", "7.2x^3", "-4.5"} is good
